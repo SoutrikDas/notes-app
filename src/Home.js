@@ -15,6 +15,19 @@ const Home = ({firebase,auth,provider}) => {
     const [isLogged,setIsLogged] =useState('false') //my plan initially is to just change this to triger useEffect , it doesnt matter if the value false corresponds to no user 
     // var mydata={}
     const [notesArray,setNotesArray]=useState(null)
+    const [isEditing , setIsEditing]=useState(false)
+    const [editId,setEditId]=useState(null) //to store the id of the doc to edit , sent by NoteWidget and utilised by NotesForm
+    const [editData,setEditData]=useState(null)
+    const startEditing = (someid,data)=>{
+        setIsEditing(true);
+        setEditId(someid);
+        setEditData(data)
+        console.log("#ab2 ----inside StartEditing")
+        console.log("#ab2 isEditing:",isEditing)
+        console.log("#ab2 someid:",someid)
+        // console.log("isEditing:",isEditing)
+    } //to be used by NoteWidget to start editing mode
+    const stopEditing = ()=>{setIsEditing(false);setEditId(null);} //to be used by NotesForm to stop editing mode
     function customSignOut()
     {
         auth.signOut()
@@ -104,9 +117,10 @@ const Home = ({firebase,auth,provider}) => {
         <>
             <h1>Hello {auth.currentUser.displayName}</h1>
             <button className="btn btn-danger" onClick={ customSignOut}>Log Out</button>
-            <NotesForm db={db} user={auth.currentUser} firestore={firebase.firestore} switchTemp={switchTemp}/>
+            <NotesForm db={db} user={auth.currentUser} firestore={firebase.firestore} isEditing={isEditing} editId={editId} stopEditing={stopEditing} editData={editData}/>
   
-            {notesArray && <NoteGrid notesArray={notesArray} notesRef={notesRef}></NoteGrid>}
+            {notesArray && <NoteGrid notesArray={notesArray} notesRef={notesRef} startEditing={startEditing}></NoteGrid> } 
+
             {/* <NoteWidget title={notesArray[0].title} content={notesArray[0].content} /> */}
 
         </>
