@@ -1,6 +1,9 @@
+import { useEffect } from "react"
+
 const Navbar = ({auth,provider}) => {
-    const a=auth.signInWithRedirect(provider)
-    console.log(a)
+    useEffect( ()=>{})
+    // const a=auth.signInWithRedirect(provider)
+    // console.log(a)
     if (!auth.currentUser)
     {   
         console.log("if worked")

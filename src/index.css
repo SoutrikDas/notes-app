@@ -11,3 +11,35 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.abra {
+  background-color: cadetblue;
+}
+.row {
+  margin:5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+textarea,input{
+  width:100%;
+  border-radius: 50px;
+  box-shadow: rgba(0, 0, 0, 0.35) 20px 0px 20px;
+  padding: 10px;
+
+}
+label{
+  font-size: larger;
+}
+.notewidget{
+  margin: 5px;;
+  border-radius:20px;
+  background-color: darkgrey;
+  
+}
+.edit{
+  margin: 5px;
+
+}
+.delete{
+  margin: 5px;
+}

@@ -4,6 +4,8 @@
 import firebase from 'firebase'
 import { useEffect } from 'react';
 import Navbar from './components/Navbar';
+import Home from './Home';
+
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -18,7 +20,7 @@ const firebaseConfig = {
 };
 
 const firebaseApp= firebase.initializeApp(firebaseConfig)
-console.log(firebaseApp)
+// console.log(firebaseApp)
 const provider = new firebase.auth.GoogleAuthProvider();
 const auth =firebase.auth()
 
@@ -27,13 +29,19 @@ const auth =firebase.auth()
 
 function App() {
 
-  useEffect( ()=>{ console.log("Use Effect Start "); console.log(auth.currentUser); console.log("End")})
+  useEffect( ()=>{ 
+    // console.log("Use Effect Start ");
+    //  console.log(auth.currentUser); 
+    //  console.log("End")
+    })
   return (
-    <div className="App">
-      <div className="App">
-        <Navbar auth={auth} provider={provider}/>
-      </div>
-      <button onClick={ ()=>{ console.log(auth); console.log(auth.currentUser.displayName)}}>Print user info</button>
+    <div >
+
+      {/* <Navbar auth={auth} provider={provider}/> */}
+      <Home firebase={firebase} auth={auth} provider={provider} ></Home>
+
+
+
 
       
       
