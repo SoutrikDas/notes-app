@@ -33,7 +33,9 @@ label{
 .notewidget{
   margin: 5px;;
   border-radius:20px;
-  background-color: darkgrey;
+  /* background-color: darkgrey; */
+  border: groove;
+  box-shadow: rgba(0, 0, 0, 0.35) 5px 5px 5px;
   
 }
 .edit{

@@ -115,7 +115,7 @@ const NotesForm =({db,user,firestore,isEditing,editId,stopEditing,editData})=>{
                         <textarea value={content} onChange={oncontentChange} placeholder=" Enter Content" />
                     </div>
                     <div className="row">
-                        <button  className="btn btn-primary mr-2" type="submit" >Submit</button>
+                        <button  className="btn btn-primary mr-2" type="submit" >Add Note</button>
                     </div>
                 </form> 
             </div>

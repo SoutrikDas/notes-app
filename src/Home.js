@@ -6,6 +6,7 @@ import NoteWidget from "./components/NoteWidget";
 
 
 
+
 const Home = ({firebase,auth,provider}) => {
     const [pending, setPending ]=useState(true)
     var db=firebase.firestore()
@@ -100,7 +101,9 @@ const Home = ({firebase,auth,provider}) => {
 
     if (pending)
     {
-        return <h1>Loading....</h1>
+        return <div >
+            <image src={icon} alt="Loading..."/>
+        </div>
     }
     console.log(db)
 //TODO: Delete the foll
@@ -114,9 +117,15 @@ const Home = ({firebase,auth,provider}) => {
     //     console.error("Error removing document: ", error);
     // });
     return (
-        <>
-            <h1>Hello {auth.currentUser.displayName}</h1>
-            <button className="btn btn-danger" onClick={ customSignOut}>Log Out</button>
+        <>  
+            <div className="container"></div>
+            <div className="row align-items-center">
+                <h1 className="col ml-2">Hello {auth.currentUser.displayName}</h1>
+                <a href="https://www.notion.so/NotesApp-Firebase-Project-Diary-1dfc9e25a986415095e6406dc634966d" target="_blank" className="btn btn-dark">Diary</a>
+                <button className="btn btn-danger col-1-auto ml-1" onClick={ customSignOut}>Log Out</button>
+
+            </div>
+            
             <NotesForm db={db} user={auth.currentUser} firestore={firebase.firestore} isEditing={isEditing} editId={editId} stopEditing={stopEditing} editData={editData}/>
   
             {notesArray && <NoteGrid notesArray={notesArray} notesRef={notesRef} startEditing={startEditing}></NoteGrid> } 
