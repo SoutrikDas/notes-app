@@ -36,6 +36,7 @@ label{
   /* background-color: darkgrey; */
   border: groove;
   box-shadow: rgba(0, 0, 0, 0.35) 5px 5px 5px;
+  border-width: 1px;
   
 }
 .edit{

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import NotesForm from "./components/NotesForm";
 import NoteGrid from './components/NoteGrid'
-import NoteWidget from "./components/NoteWidget";
+
 
 
 
@@ -23,40 +23,35 @@ const Home = ({firebase,auth,provider}) => {
         setIsEditing(true);
         setEditId(someid);
         setEditData(data)
-        console.log("#ab2 ----inside StartEditing")
-        console.log("#ab2 isEditing:",isEditing)
-        console.log("#ab2 someid:",someid)
-        // console.log("isEditing:",isEditing)
+
+
     } //to be used by NoteWidget to start editing mode
     const stopEditing = ()=>{setIsEditing(false);setEditId(null);} //to be used by NotesForm to stop editing mode
     function customSignOut()
     {
         auth.signOut()
-        console.log("User Signed Out")
+
         setIsLogged(!isLogged) //triggering the useEffect
     }
     function updateNotesArray(querySnapshot)
     {   
         var arr=[]
 
-        console.log("# updateNotesArray ran ")
+
         querySnapshot.forEach((doc)=>{
             arr.push(doc)
-            console.log("inside consolelog",doc.data()) //this also works 
-            console.log("inside docid",doc.id) //this works
-            // console.log("inside Home.js updateNotesArray  ",doc.data())
-            // doc.data().id=doc.id()
-            // console.log("inside new object", doc.data())
+            // console.log("inside consolelog",doc.data()) //this also works 
+            // console.log("inside docid",doc.id) //this works
+
         })
         setNotesArray(arr)
-        console.log("# after updateNotesArray ",notesArray,arr)
+        // console.log("# after updateNotesArray ",notesArray,arr)
     }
     async function fetchNotes(notesRef,user,notesArray,setNotesArray){
 
         //theres a lot of problems that are happening due to this query stuff , I need to play around with this to see whatsup with this
         
 
-        // console.log("--fetchNotes ran--")
 
         var query =await  notesRef.where("uid","==",user.uid).orderBy('createdAt',"desc")
         .onSnapshot(updateNotesArray);
@@ -64,7 +59,7 @@ const Home = ({firebase,auth,provider}) => {
     
     }
     useEffect(async ()=>{
-        console.log("useEffect Home Ran")
+
         async function fetchUser(){
             const user=await auth.signInWithPopup(provider)
 
@@ -84,13 +79,9 @@ const Home = ({firebase,auth,provider}) => {
                 fetchUser()
                 
             }
-            // console.log("auth state changed")
-            // console.log(user)
-        })
-        // if(auth.currentUser){
-        //     fetchNotes(notesRef,auth.currentUser,notesArray,setNotesArray)
 
-        // }
+        })
+
 
 
 
@@ -101,21 +92,9 @@ const Home = ({firebase,auth,provider}) => {
 
     if (pending)
     {
-        return <div >
-            <image src={icon} alt="Loading..."/>
-        </div>
+        return <h1>Loading...</h1>
     }
-    console.log(db)
-//TODO: Delete the foll
-    // var a = await notesRef.where("id","==","7nr1060XddqSgr9i7fzG")
-    // var a = notesRef.doc("7nr1060XddqSgr9i7fzG")
-    // console.log("## a:",a)
-    // a.delete().then( ()=>{console.log("Deletion done")})
-    // notesRef.where("id").delete().then(() => {
-    //     console.log("Document successfully deleted!");
-    // }).catch((error) => {
-    //     console.error("Error removing document: ", error);
-    // });
+
     return (
         <>  
             <div className="container"></div>
@@ -130,7 +109,7 @@ const Home = ({firebase,auth,provider}) => {
   
             {notesArray && <NoteGrid notesArray={notesArray} notesRef={notesRef} startEditing={startEditing}></NoteGrid> } 
 
-            {/* <NoteWidget title={notesArray[0].title} content={notesArray[0].content} /> */}
+
 
         </>
     )

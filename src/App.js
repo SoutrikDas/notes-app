@@ -3,7 +3,6 @@
 // import './App.css';
 import firebase from 'firebase'
 import { useEffect } from 'react';
-import Navbar from './components/Navbar';
 import Home from './Home';
 
 
