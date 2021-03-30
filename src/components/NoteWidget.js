@@ -2,10 +2,10 @@
 //and content , there will be a delete button and there will be an edit button 
 const NoteWidget = ({doc,notesRef,startEditing}) => {
 
-    console.log("inside NoteWidget",doc.data())
+
     function customDelete(){
         // doc.delete().then( ()=>{console.log("Doc Removed ")}) //This does not work 
-        console.log(doc.id) //it works
+        // console.log(doc.id) //it works
         var a = notesRef.doc(doc.id)
         a.delete().then( ()=>{console.log("Deletion done")})
     }

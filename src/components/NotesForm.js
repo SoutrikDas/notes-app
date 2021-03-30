@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import Header from './header'
-import {Button} from 'react-bootstrap'
+
 
 
 
@@ -8,7 +7,7 @@ const NotesForm =({db,user,firestore,isEditing,editId,stopEditing,editData})=>{
     const [title,setTitle] =useState('')
     const [content, setContent] = useState('')
     var notes = db.collection("notes")
-    const [limit,setLimit]=useState(0) //for some reason the setTitle and setContent in the if triggers an infinite refresh , which i hope to stop, using this variable 
+    
 
     const ontitleChange= (event)=> {setTitle(event.target.value)}
     const oncontentChange= (event)=> {setContent(event.target.value)}
@@ -19,13 +18,11 @@ const NotesForm =({db,user,firestore,isEditing,editId,stopEditing,editData})=>{
             title: title,
             content: content,
         },{merge:true}) //merge:true prevents from overwriting previous docs and merges new and old
-        console.log("---onUpdate in NotesForm has started ")
-        //todo : add the code that will edit stuff here
-        console.log("do the edit here")
+  
         //after editing we need to change isEdit 
         stopEditing()
-        console.log("### ---onUpdate in NotesForm has stopped ")
-        setLimit(0)
+
+ 
     }
     const onSubmit = async (event)=>{
         event.preventDefault() //prevents the default POST submission ,which would refresh the page 
@@ -40,22 +37,21 @@ const NotesForm =({db,user,firestore,isEditing,editId,stopEditing,editData})=>{
     
         
     }
-    console.log("#ab2 isEditing in NotesForm outside if",isEditing)
+
     if(isEditing)
-    {   console.log("#ab2 inside NotesForm inside if(isEditing) before limit+1")
+    {  
 
         // ---Below code is for editing
-        // return(<h1>#ab2 Hello there</h1>)
-        console.log("#abs first line inside if(isEditing)")
+ 
+   
         if(editId)
         {
             const a=notes.doc(editId) //get the document which we are to edit using the id 
-            console.log("#ab2 inside isEditing a",a)
+
 
         }
 
-        // setContent("Comon do it ")
-        // setTitle("Update this")
+
         return (
             <>
             <div className="container">
@@ -78,20 +74,7 @@ const NotesForm =({db,user,firestore,isEditing,editId,stopEditing,editData})=>{
                 </form> 
             </div>
             
-            {/* <div className="container" >
-                <div className="row">
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra">First</div>
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra ">Sec</div>
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra">Third</div>
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra">Fourth</div>
-    
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra">Undeniably fifth</div>
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra">Deniably sixth</div>
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra">Who are you</div>
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra">Why dont you do what you want</div>
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra">Goodnight</div>
-                </div>
-            </div> */}
+
             </>
         )
     }
@@ -120,20 +103,7 @@ const NotesForm =({db,user,firestore,isEditing,editId,stopEditing,editData})=>{
                 </form> 
             </div>
             
-            {/* <div className="container" >
-                <div className="row">
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra">First</div>
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra ">Sec</div>
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra">Third</div>
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra">Fourth</div>
-    
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra">Undeniably fifth</div>
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra">Deniably sixth</div>
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra">Who are you</div>
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra">Why dont you do what you want</div>
-                    <div className="col-xs-2 sm-3 md-4 lg-5 xl-6 abra">Goodnight</div>
-                </div>
-            </div> */}
+            
             </>
         )
     }
