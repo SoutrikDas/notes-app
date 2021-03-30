@@ -31,7 +31,9 @@ const Home = ({firebase,auth,provider}) => {
     {
         auth.signOut()
 
-        setIsLogged(!isLogged) //triggering the useEffect
+        // setIsLogged(!isLogged) //triggering the useEffect 
+        //instead of triggering the useEffect, i thought about changing the `pending` hook , which will load the `loading screen` 
+        setPending(false)
     }
     function updateNotesArray(querySnapshot)
     {   
@@ -58,25 +60,28 @@ const Home = ({firebase,auth,provider}) => {
 
     
     }
+    async function fetchUser(){
+        const user=await auth.signInWithRedirect(provider)
+
+        setPending(false)
+        return user
+        
+    }
     useEffect(async ()=>{
 
-        async function fetchUser(){
-            const user=await auth.signInWithPopup(provider)
-
-            setPending(false)
-            return user
-            
-        }
+        
         auth.onAuthStateChanged((user)=>{
             if(user){
 
                 setPending(false)
+                //i dont want to do any auth without user interaction  because that throws an error sometimes
                 fetchNotes(notesRef, user, notesArray, setNotesArray)
 
 
             }
             else {
-                fetchUser()
+                setPending(true)
+                // fetchUser()
                 
             }
 
@@ -87,12 +92,20 @@ const Home = ({firebase,auth,provider}) => {
 
 
 
-    },[isLogged])
+    },[pending])
 
 
     if (pending)
-    {
-        return <h1>Loading...</h1>
+    {   
+        return (
+            <div className="loadingscreen " >
+                
+                <h1 className="">Hello, welcome to notesapp</h1>
+                <h2 className="">By <a className="red" href="https://github.com/SoutrikDas" target="_blank">Soutrik Das</a> as a part of <a className="red" href="https://woc.cyberlabs.club/" target="_blank" >WOC</a></h2>
+                <button className="btn-dark btn " onClick={fetchUser}>Sign in</button>
+                <h2 className="">If you just signed in please wait for a sec before trying it again</h2>
+            </div>
+        )
     }
 
     return (
