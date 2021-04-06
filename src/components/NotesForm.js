@@ -36,7 +36,6 @@ const NotesForm =({db,user,firestore,isEditing,editId,stopEditing,editData})=>{
         setIsUpdateTitle(true)
 
     }
-    useEffect(()=>{console.log("###------------rerendered")})
     const onSubmit = async (event)=>{
         event.preventDefault() //prevents the default POST submission ,which would refresh the page 
         notes.add(

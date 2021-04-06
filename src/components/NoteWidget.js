@@ -9,16 +9,19 @@ const NoteWidget = ({doc,notesRef,startEditing}) => {
         var a = notesRef.doc(doc.id)
         a.delete().then( ()=>{console.log("Deletion done")})
     }
+   
     return ( 
         <div className="notewidget col">
             <h3 className="notetitle">{doc.data().title}</h3>
             <p className="notecontent">{doc.data().content}</p>
-            <div className="row">
+            <p className="timedesc">{doc.data().createdAt.toDate().toString()}</p>
+            
+            <div className="row align-items-end">
                 <div className="edit">
-                    <button className="btn btn-secondary" onClick={()=>{startEditing(doc.id,doc.data())}}>Edit</button>
+                    <button className="btn btn-secondary align-bottom" onClick={()=>{startEditing(doc.id,doc.data())}}>Edit</button>
                 </div>
                 <div className="delete">
-                    <button className="btn btn-danger" onClick={ customDelete}>Delete</button>
+                    <button className="btn btn-danger align-bottom" onClick={ customDelete}>Delete</button>
                 </div>
             </div>
         </div>
