@@ -130,5 +130,7 @@ const Home = ({firebase,auth,provider}) => {
 
     
 }
- 
+
+
 export default Home;
+

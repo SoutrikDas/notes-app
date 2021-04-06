@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
 
@@ -7,11 +7,19 @@ const NotesForm =({db,user,firestore,isEditing,editId,stopEditing,editData})=>{
     const [title,setTitle] =useState('')
     const [content, setContent] = useState('')
     var notes = db.collection("notes")
+    //when isUpdateTitle is true, only then will the code fetch the previous contents and title and push it into the fields
+    const [isUpdateTitle,setIsUpdateTitle]=useState(true) 
     
 
     const ontitleChange= (event)=> {setTitle(event.target.value)}
     const oncontentChange= (event)=> {setContent(event.target.value)}
-    const onUpdate = async (event)=>{
+    /**
+     * It sets content of the doc to the new content entered by the user
+     * 
+     * @param  event triggered when edit form is submitted
+     * testing {@link}
+     */
+    async function onUpdate (event){
         event.preventDefault()
         const tempdoc = notes.doc(editId) 
         tempdoc.set({
@@ -21,9 +29,14 @@ const NotesForm =({db,user,firestore,isEditing,editId,stopEditing,editData})=>{
   
         //after editing we need to change isEdit 
         stopEditing()
+        //after editing change the fields to empy 
+        setTitle("")
+        setContent("")
 
- 
+        setIsUpdateTitle(true)
+
     }
+    useEffect(()=>{console.log("###------------rerendered")})
     const onSubmit = async (event)=>{
         event.preventDefault() //prevents the default POST submission ,which would refresh the page 
         notes.add(
@@ -34,6 +47,9 @@ const NotesForm =({db,user,firestore,isEditing,editId,stopEditing,editData})=>{
                 createdAt: firestore.FieldValue.serverTimestamp(),
             }
         )
+        //after submission empty the fields
+        setTitle("")
+        setContent("")
     
         
     }
@@ -43,14 +59,34 @@ const NotesForm =({db,user,firestore,isEditing,editId,stopEditing,editData})=>{
 
         // ---Below code is for editing
  
-   
-        if(editId)
-        {
+        
+        if((editId))
+        {   
+
+
             const a=notes.doc(editId) //get the document which we are to edit using the id 
+            const b=notes.doc(editId).get()
+            b.then(
+                (value)=>{
+
+                    if(isUpdateTitle)
+                    {   
+                        
+
+                        setTitle(value.data().title)
+                        setContent(value.data().content)
+                        setIsUpdateTitle(false)
+
+                    }
+                    
+
+                }
+            )
+
 
 
         }
-
+        
 
         return (
             <>
