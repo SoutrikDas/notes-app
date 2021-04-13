@@ -6,16 +6,18 @@ import { useEffect } from 'react';
 import Home from './Home';
 
 
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+// I changed the keys to be inside a .env rather than inside the code , this change was made on 2021-04-14
+//reading the keys from .env file 
 const firebaseConfig = {
-  apiKey: "AIzaSyAZNr05RMXOOnSWq3IhCj7yglCyiLvJY2Y",
-  authDomain: "notesapp-20je0971.firebaseapp.com",
-  databaseURL: "https://notesapp-20je0971-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "notesapp-20je0971",
-  storageBucket: "notesapp-20je0971.appspot.com",
-  messagingSenderId: "660992346828",
-  appId: "1:660992346828:web:90e6c07e9f524b7005d069",
-  measurementId: "G-7LW76DX0VH"
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_APPID,
+  measurementId:process.env.REACT_APP_MEASUREMENTID,
+
 };
 
 const firebaseApp= firebase.initializeApp(firebaseConfig)
